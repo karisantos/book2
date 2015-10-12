@@ -44,9 +44,18 @@ $('button#shorter').click(function(){
 
 // TODO: add an event handler for the "Red" button to set the background color
 // of the viz block to red
+$('button#red').click(function(){
+    console.log('red button is clicked')
+    $('.myviz').css("background-color","red")
+})
+
 
 // TODO: add an event handler for the "Green" button to set the background color
 // of the viz block to green
+$('button#green').click(function(){
+    console.log('green button is clicked')
+    $('.myviz').css("background-color","green")
+})
 
 $('button#onebar').click(function(){
     var svg = "<svg><rect height='50' width='10'></rect></svg>"
@@ -58,8 +67,23 @@ $('button#twobars').click(function(){
     $('.myviz').html(svg)
 })
 
-// TODO: add an event handler for the "Five Bars" button to display five bars
+$('button#fivebars').click(function(){
+    var svg = "<svg>";
+    for (i=0;i<5;i++){
+        svg += "<rect height='50' width='10' x='"+i*20+"'/>";
+    }
+    svg+="</svg>";
+    $('.myviz').html(svg);
+})
 
-// TODO: add an event handler for the "Five Green Bars" button to display five green bars
+
+$('button#fivegreenbars').click(function(){
+    var svg = "<svg>";
+    for (i=0;i<5;i++){
+        svg += "<rect height='50' width='10' x='"+i*20+"' fill='green' stroke='green'/>";
+    }
+    svg+="</svg>";
+    $('.myviz').html(svg);
+})
 
 {% endscript %}
