@@ -15,31 +15,31 @@ Three example of specific questions in this class are:
 Come up with five additional question classes. Each must have two or three
 variables.
 
-## (Question template)
+## Location
+Three example of specific questions in this class are:
+* Which states have the most trendy restaurants?
+* 
+* (specific question)
+
+## Time of Operation
+Three example of specific questions in this class are:
+* how many hours per week are categories of business open?
+* Are many businesses open weekends?
+* (specific question)
+
+## Number of reviews vs number of stars
 Three example of specific questions in this class are:
 * (specific question)
 * (specific question)
 * (specific question)
 
-## (Question template)
+## Noise level
 Three example of specific questions in this class are:
-* (specific question)
-* (specific question)
-* (specific question)
+* Are noisy businesses good for kids?
+* What category have noisy attributes
+* Are trendy restaurants noisy?
 
-## (Question template)
-Three example of specific questions in this class are:
-* (specific question)
-* (specific question)
-* (specific question)
-
-## (Question template)
-Three example of specific questions in this class are:
-* (specific question)
-* (specific question)
-* (specific question)
-
-## (Question template)
+## good for dancing
 Three example of specific questions in this class are:
 * (specific question)
 * (specific question)

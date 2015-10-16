@@ -5,7 +5,7 @@
         <!-- head:start -->
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Week 7 | book2</title>
+        <title>Team | book2</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.5.0-beta.4">
@@ -57,10 +57,10 @@
         
     
     
-    <link rel="next" href="../../learning/week7/netapp.html" />
+    <link rel="next" href="../../learning/week8/q1.html" />
     
     
-    <link rel="prev" href="../../learning/index.html" />
+    <link rel="prev" href="../../learning/week8/index.html" />
     
 
         <!-- head:end -->
@@ -68,7 +68,7 @@
     <body>
         <!-- body:start -->
         
-    <div class="book" data-level="1.1" data-basepath="../.." data-revision="Fri Oct 16 2015 08:27:33 GMT-0600 (MDT)">
+    <div class="book" data-level="1.2.1" data-basepath="../.." data-revision="Fri Oct 16 2015 08:27:33 GMT-0600 (MDT)">
     
 
 <div class="book-summary">
@@ -112,7 +112,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter active" data-level="1.1" data-path="learning/week7/index.html">
+        <li class="chapter " data-level="1.1" data-path="learning/week7/index.html">
             
                 
                     <a href="../../learning/week7/index.html">
@@ -254,7 +254,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.2.1" data-path="learning/week8/team.html">
+        <li class="chapter active" data-level="1.2.1" data-path="learning/week8/team.html">
             
                 
                     <a href="../../learning/week8/team.html">
@@ -459,11 +459,147 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="week-7">Week 7</h1>
-<p>This week&apos;s learning challenge is as follows:</p>
+                        <h1 id="ui">UI</h1>
+<p>Pick one question class and build an exploratory visualization interface for it.
+The question class you pick must have at least three variables that can be changed.</p>
+<h2 id="for-a-given-state-and-ambience-how-many-businesses-are-there-at-each-star-rating">For a given state and ambience, how many businesses are there at each star rating?</h2>
+<div style="border:1px grey solid; padding:5px;">
+    <div><h5>State</h5>
+        <input id="arg1" type="text" value="AZ">  (NC,AZ, WI, IL)
+    </div>
+    <div><h5>Ambience</h5>
+        <input id="arg2" type="text" value="casual"> (&quot;intimate&quot;, &quot;classy&quot;, &quot;hipster&quot;, &quot;divey&quot;, &quot;touristy&quot;, &quot;trendy&quot;, &quot;upscale&quot;, &quot;casual&quot; )
+    </div>
+    <div><h5>Z</h5>
+        <input id="arg3" type="text" value="asc">
+    </div>    
+    <div style="margin:20px;">
+        <button id="viz">Vizualize</button>
+    </div>
+</div>
+
+<div class="myviz" style="width:100%; height:500px; border: 1px black solid; padding: 5px;">
+Data is not loaded yet
+</div>
+
+<p><pre><code>items = &apos;not loaded yet&apos;
+
+console.log(&apos;lodash version:&apos;, _.VERSION)
+
+$.get(&apos;http://bigdatahci2015.github.io/data/yelp/yelp_academic_dataset_business.5000.json.lines.txt&apos;)
+    .success(function(data){        
+        var lines = data.trim().split(&apos;\n&apos;)
+
+        // convert text lines to json arrays and save them in `items`
+        items = _.map(lines, JSON.parse)
+
+        console.log(&apos;number of items loaded:&apos;, items.length)
+
+        console.log(&apos;first item&apos;, items[0])
+     })
+     .error(function(e){
+         console.error(e)
+     })
+
+function viz(state, ambience, sort){  
+
+  //  var state = &quot;NC&quot;;
+  //  var ambience = &quot;romantic&quot;;
+  //  var sort = &quot;asc&quot;
+
+    filtered =  _.filter(items, function(d){
+        return ( d.state == state &amp;&amp; d.attributes &amp;&amp; d.attributes.Ambience &amp;&amp; d.attributes.Ambience[ambience] )
+        }) 
+    console.log(&apos;first filter&apos;, filtered[0]);
+    console.log(&apos;filtered length&apos;, _.size(filtered))
+    var groups = _.groupBy(filtered, &quot;stars&quot;)
+    console.log(&apos;groups&apos;, groups)
+    var pairs = _.pairs(groups)
+    console.log(&apos;pairs&apos;, pairs)
+        
+    // TODO: sort pairs in the order specified by users
+     var sorted = [];
+    //if ((sort == &apos;asc&apos;)||(sort == &apos;ascending&apos;)) {
+    if (_.contains(sort, &apos;asc&apos;)) {
+        sorted = _.sortBy(pairs, function(d){
+                return d[0];
+        });
+    }else {
+        sorted = _(_.sortBy(pairs, function(d){
+                return d[0];
+        })).reverse().value();
+    }
+
+    // define a template string
+    var tplString = &apos;&lt;g transform=&quot;translate(0 ${d.y})&quot;&gt; \
+                    &lt;text y=&quot;20&quot;&gt;${d.label}&lt;/text&gt; \
+                    &lt;rect x=&quot;30&quot;   \
+                         width=&quot;${d.width}&quot; \
+                         height=&quot;20&quot;    \
+                         style=&quot;fill:${d.color};    \
+                                stroke-width:3; \
+                                stroke:rgb(0,0,0)&quot; /&gt;   \
+                    &lt;/g&gt;&apos;
+
+    // compile the string to get a template function
+    var template = _.template(tplString)
+
+    function computeX(d, i) {
+        return 0
+    }
+
+    function computeWidth(d, i) {        
+        return d[1].length*5;
+    }
+
+    function computeY(d, i) {
+        return i * 20
+    }
+
+    function computeColor(d, i) {
+        return &apos;red&apos;
+    }
+
+    function computeLabel(d, i) {
+        return d[0]
+    }
+
+    
+
+    var viz = _.map(sorted, function(d, i){                
+                return {
+                    x: computeX(d, i),
+                    y: computeY(d, i),
+                    width: computeWidth(d, i),
+                    color: computeColor(d, i),
+                    label: computeLabel(d, i)
+                }
+             })
+    console.log(&apos;viz&apos;, viz)
+
+    var result = _.map(viz, function(d){
+             // invoke the compiled template function on each viz data
+             return template({d: d})
+         })
+    console.log(&apos;result&apos;, result)
+
+    $(&apos;.myviz&apos;).html(&apos;&lt;svg width=&quot;100%&quot; height=&quot;100%&quot;&gt;&apos; + result + &apos;&lt;/svg&gt;&apos;)
+}
+
+$(&apos;button#viz&apos;).click(function(){    
+    var arg1 = $(&apos;input#arg1&apos;).val();
+    var arg2 = $(&apos;input#arg2&apos;).val();
+    var arg3 = $(&apos;input#arg3&apos;).val();
+    viz(arg1, arg2, arg3)
+})</code></pre><script>var code ="items = 'not loaded yet'\n\nconsole.log('lodash version:', _.VERSION)\n\n$.get('http://bigdatahci2015.github.io/data/yelp/yelp_academic_dataset_business.5000.json.lines.txt')\n    .success(function(data){        \n        var lines = data.trim().split('\\n')\n\n        // convert text lines to json arrays and save them in `items`\n        items = _.map(lines, JSON.parse)\n\n        console.log('number of items loaded:', items.length)\n\n        console.log('first item', items[0])\n     })\n     .error(function(e){\n         console.error(e)\n     })\n\nfunction viz(state, ambience, sort){  \n\n  //  var state = \"NC\";\n  //  var ambience = \"romantic\";\n  //  var sort = \"asc\"\n\n    filtered =  _.filter(items, function(d){\n        return ( d.state == state && d.attributes && d.attributes.Ambience && d.attributes.Ambience[ambience] )\n        }) \n    console.log('first filter', filtered[0]);\n    console.log('filtered length', _.size(filtered))\n    var groups = _.groupBy(filtered, \"stars\")\n    console.log('groups', groups)\n    var pairs = _.pairs(groups)\n    console.log('pairs', pairs)\n        \n    // TODO: sort pairs in the order specified by users\n     var sorted = [];\n    //if ((sort == 'asc')||(sort == 'ascending')) {\n    if (_.contains(sort, 'asc')) {\n        sorted = _.sortBy(pairs, function(d){\n                return d[0];\n        });\n    }else {\n        sorted = _(_.sortBy(pairs, function(d){\n                return d[0];\n        })).reverse().value();\n    }\n\n    // define a template string\n    var tplString = '<g transform=\"translate(0 ${d.y})\"> \\\n                    <text y=\"20\">${d.label}</text> \\\n                    <rect x=\"30\"   \\\n                         width=\"${d.width}\" \\\n                         height=\"20\"    \\\n                         style=\"fill:${d.color};    \\\n                                stroke-width:3; \\\n                                stroke:rgb(0,0,0)\" />   \\\n                    </g>'\n\n    // compile the string to get a template function\n    var template = _.template(tplString)\n\n    function computeX(d, i) {\n        return 0\n    }\n\n    function computeWidth(d, i) {        \n        return d[1].length*5;\n    }\n\n    function computeY(d, i) {\n        return i * 20\n    }\n\n    function computeColor(d, i) {\n        return 'red'\n    }\n\n    function computeLabel(d, i) {\n        return d[0]\n    }\n\n    \n\n    var viz = _.map(sorted, function(d, i){                \n                return {\n                    x: computeX(d, i),\n                    y: computeY(d, i),\n                    width: computeWidth(d, i),\n                    color: computeColor(d, i),\n                    label: computeLabel(d, i)\n                }\n             })\n    console.log('viz', viz)\n\n    var result = _.map(viz, function(d){\n             // invoke the compiled template function on each viz data\n             return template({d: d})\n         })\n    console.log('result', result)\n\n    $('.myviz').html('<svg width=\"100%\" height=\"100%\">' + result + '</svg>')\n}\n\n$('button#viz').click(function(){    \n    var arg1 = $('input#arg1').val();\n    var arg2 = $('input#arg2').val();\n    var arg3 = $('input#arg3').val();\n    viz(arg1, arg2, arg3)\n})"</script></p>
+<h1 id="authors">Authors</h1>
+<p>This UI is developed by</p>
 <ul>
-<li>Team - NetApp Data, Report (Tableau)</li>
-<li>Individual - Interactive Visualization Basics (JQuery)    </li>
+<li><a href="link%20to%20github%20account">Full name</a></li>
+<li><a href="link%20to%20github%20account">Full name</a></li>
+<li><a href="link%20to%20github%20account">Full name</a></li>
+<li><a href="link%20to%20github%20account">Full name</a></li>
+<li><a href="link%20to%20github%20account">Full name</a></li>
 </ul>
 
                     
@@ -475,10 +611,10 @@
         </div>
 
         
-        <a href="../../learning/index.html" class="navigation navigation-prev " aria-label="Previous page: Learning"><i class="fa fa-angle-left"></i></a>
+        <a href="../../learning/week8/index.html" class="navigation navigation-prev " aria-label="Previous page: Week 8"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="../../learning/week7/netapp.html" class="navigation navigation-next " aria-label="Next page: NetApp"><i class="fa fa-angle-right"></i></a>
+        <a href="../../learning/week8/q1.html" class="navigation navigation-next " aria-label="Next page: Q1"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>

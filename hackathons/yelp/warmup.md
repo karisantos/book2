@@ -36,7 +36,7 @@ $.get('http://bigdatahci2015.github.io/data/yelp/yelp_academic_dataset_business.
          console.error(e)
      })
 
-function viz(arg1, arg2, arg3){    
+function viz(group, sort){    
 
     // define a template string
     var tplString = '<g transform="translate(0 ${d.y})"> \
@@ -70,14 +70,25 @@ function viz(arg1, arg2, arg3){
 
     // TODO: group items based on the attribute specified by users
 
-    var groups = _.groupBy(items, 'stars')
+    var groups = _.groupBy(items, group)
     console.log('groups', groups)
 
     var pairs = _.pairs(groups)
-
+    
     // TODO: sort pairs in the order specified by users
+     var sorted = [];
+    //if ((sort == 'asc')||(sort == 'ascending')) {
+    if (_.contains(sort, 'asc')) {
+        sorted = _.sortBy(pairs, function(d){
+                return d[1].length;
+        });
+    }else {
+        sorted = _(_.sortBy(pairs, function(d){
+                return d[1].length;
+        })).reverse().value();
+    }
 
-    var viz = _.map(pairs, function(d, i){                
+    var viz = _.map(sorted, function(d, i){                
                 return {
                     x: computeX(d, i),
                     y: computeY(d, i),
@@ -98,10 +109,9 @@ function viz(arg1, arg2, arg3){
 }
 
 $('button#viz').click(function(){    
-    var arg1 = 'TODO'
-    var arg2 = 'TODO'
-    var arg3 = 'TODO'    
-    viz(arg1, arg2, arg3)
+    var arg1 = $('input#arg1').val();
+    var arg2 = $('input#arg2').val();
+    viz(arg1, arg2)
 })  
 
 {% endscript %}
