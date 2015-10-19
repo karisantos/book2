@@ -8,7 +8,7 @@ Tableau
 
 # Authors
 
-This report is prepared by
+
 This report is prepared by
 * [Kari Santos](https://github.com/karisantos)
 * [Heather Witte](https://github.com/hswitte)

@@ -15,32 +15,31 @@ Three example of specific questions in this class are:
 Come up with five additional question classes. Each must have two or three
 variables.
 
-## Location
+## For a given state and ambience, how many businesses are there at each star rating?
 Three example of specific questions in this class are:
-* Which states have the most trendy restaurants?
-* 
-* (specific question)
+* How many businesses have 4.5 stars
+* How many businesses have 2 stars
+* How many businesses have 4 stars
 
-## Time of Operation
+## Alcohol and ratings
 Three example of specific questions in this class are:
-* how many hours per week are categories of business open?
-* Are many businesses open weekends?
-* (specific question)
+* How many businesses have 5 stars and no alcohol
+* How many businesses have 3 stars and have no full bar
+* How many businesses have 4 stars and have wine and beer
+## Price Range and Noise level
+Three example of specific questions in this class are:
+* How many businesses are at price range 2 and are loud
+*  How many businesses are at price range 3 and are loud
+*  How many businesses are at price range 4 and are quiet
 
-## Number of reviews vs number of stars
+## Review Counts and Meals
 Three example of specific questions in this class are:
-* (specific question)
-* (specific question)
-* (specific question)
+* How many businesses have 10 or more reviews and are good for lunch?
+* How many businesses have 20 or more reviews and are good for dinner?
+* How many businesses have 10 or more reviews and are good for brunch?
 
-## Noise level
+##  Meals and ratings
 Three example of specific questions in this class are:
-* Are noisy businesses good for kids?
-* What category have noisy attributes
-* Are trendy restaurants noisy?
-
-## good for dancing
-Three example of specific questions in this class are:
-* (specific question)
-* (specific question)
-* (specific question)
+* How many businesses with 3 or more stars  are good for lunch?
+* How many businesses with 4 or more stars  are good for brunch?
+* How many businesses with 3 or more stars  are good for late night?

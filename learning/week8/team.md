@@ -12,7 +12,7 @@ The question class you pick must have at least three variables that can be chang
     <div><h5>Ambience</h5>
         <input id="arg2" type="text" value="casual"/> ("intimate", "classy", "hipster", "divey", "touristy", "trendy", "upscale", "casual" )
     </div>
-    <div><h5>Z</h5>
+    <div><h5>Sort by Star Rating</h5>
         <input id="arg3" type="text" value="asc"/>
     </div>    
     <div style="margin:20px;">
@@ -141,8 +141,8 @@ $('button#viz').click(function(){
 # Authors
 
 This UI is developed by
-* [Full name](link to github account)
-* [Full name](link to github account)
-* [Full name](link to github account)
-* [Full name](link to github account)
-* [Full name](link to github account)
+* [Kari Santos](https://github.com/karisantos)
+* [Heather Witte](https://github.com/hswitte)
+* [Zachary Lamb](https://github.com/ZachLamb)
+* [Fadhil Suhendi](https://github.com/fadhilfath)
+* [Denis Kazakov](https://github.com/94kazakov)
